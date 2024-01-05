@@ -63,6 +63,7 @@ const Search = () => {
                 <FlatList
                     data={searchResults}
                     keyExtractor={(item) => item.id}
+                    numColumns={2}
                     renderItem={({ item }) => (
                         <ProductCard product={item}/>
                     )}
