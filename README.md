@@ -1,4 +1,4 @@
-ECOMMERCE MOBILE 
+ECOMMERCE MOBILE
 
 This is a simple ecommerce application that performs basic operations such as ;
 
@@ -29,7 +29,7 @@ react-native-screens
 react-native-snap-carousel
 redux
 
-HOW TO USE; 
+HOW TO USE;
 
     pull from repo
     npm install
