@@ -20,8 +20,8 @@ const LoginScreen = ({ navigation }) => {
     });
 
     const onSubmit = (data) => {
-        // Simulate login (replace with actual authentication logic)
         signIn(data);
+        navigation.goBack()
     };
 
     return (
