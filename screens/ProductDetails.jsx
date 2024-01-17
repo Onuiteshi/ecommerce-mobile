@@ -1,4 +1,4 @@
-import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {Image, Modal, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {Fontisto, Ionicons, MaterialCommunityIcons, SimpleLineIcons} from "@expo/vector-icons";
 import {COLORS, SIZES} from "../constants";
 import styles from "./styles/productDetails"
@@ -6,12 +6,14 @@ import {useState} from "react";
 import {useRoute} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../reducers/cartReducer";
+import SizeColorModal from "../components/product/SizeColorModal";
 
 const ProductDetails = ({navigation}) => {
     const route = useRoute();
     const dispatch = useDispatch()
     const {product} = route.params
     const [count, setCount] = useState(1);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const increment = ()=>{
         setCount(count+1)
@@ -23,10 +25,19 @@ const ProductDetails = ({navigation}) => {
         }
     }
 
-    const handleAddToCart = () => {
-        dispatch(addToCart(product));
-        alert("Product added to cart");
+
+    const handleSizeColorSubmit = (selectedSize, selectedColor) => {
+        // You can dispatch the selected data along with the product data here
+        console.log('Selected Size:', selectedSize);
+        console.log('Selected Color:', selectedColor);
+        dispatch(addToCart({ ...product, size: selectedSize, color: selectedColor }));
+        alert('Product added to cart');
+        // navigation.navigate('Cart'); //
     };
+
+    const toggleModal = ()=>{
+        setModalVisible(!modalVisible)
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -99,11 +110,19 @@ const ProductDetails = ({navigation}) => {
                     <TouchableOpacity onPress={() => navigation.navigate('Checkout')} style={styles.cartBtn}>
                         <Text style={styles.cartTitle}>BUY NOW</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={handleAddToCart} style={styles.addCart}>
+                    <TouchableOpacity onPress={toggleModal} style={styles.addCart}>
                         <Fontisto name={'shopping-bag'} size={22} color={COLORS.lightwhite}/>
                     </TouchableOpacity>
                 </View>
+
+                <SizeColorModal
+                    visible={modalVisible}
+                    onClose={() => setModalVisible(false)}
+                    onSubmit={handleSizeColorSubmit}
+                />
             </View>
+
+
         </ScrollView>
     )
 }

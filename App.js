@@ -13,7 +13,7 @@ import {Provider} from "react-redux";
 const Stack = createNativeStackNavigator();
 
 const client = new ApolloClient({
-    uri: "http://localhost:4000/graphql",
+    uri: "http://192.168.8.101:4000/graphql",
     cache: new InMemoryCache(),
 });
 
